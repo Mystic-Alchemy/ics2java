@@ -45,8 +45,8 @@ public class CalendarParser {
         String uid = eventString.substring(eventString.lastIndexOf("UID:"));
         Event event = new Event(uid);
         String[] parts = eventString.split("\\|");
-        for (int i = 0; i < parts.length; i++) {
-            String[] pair = parts[i].split("[:;=]");
+        for (String part : parts) {
+            String[] pair = part.split("[:;=]");
             switch (pair[0]) {
                 case "DESCRIPTION" -> event.setDescription(pair[1]);
                 case "SUMMARY" -> event.setSummary(pair[1]);

@@ -13,15 +13,6 @@ public class Event {
     private LocalDate dtStart;
     private RecurrenceFrequency freq;
 
-    public Event(String UID, String[] location, String summary, String description, LocalDate dtStart, RecurrenceFrequency freq) {
-        this(UID);
-        this.location = location;
-        this.summary = summary;
-        this.description = description;
-        this.dtStart = dtStart;
-        this.freq = freq;
-    }
-
     public Event(String uid) {
         UID = uid;
     }
