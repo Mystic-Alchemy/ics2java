@@ -23,8 +23,8 @@ import java.util.Scanner;
  * </p>
  *
  * @author PilleniusMC for Mystic-Alchemy
- * @version 1.0.0
- * @since 1.0.0
+ * @version 0.1
+ * @since 0.1
  */
 public class CalendarParser {
     private static final DateTimeFormatter I_CAL_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
