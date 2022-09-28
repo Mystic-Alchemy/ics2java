@@ -2,7 +2,7 @@ name: Create a release from artifacts
 
 on:
   push:
-    branches: [main, development]
+    branches: [master, development]
 
 jobs:
   build:
