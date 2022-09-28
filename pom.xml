@@ -49,6 +49,7 @@
                     <excludes>
                         <exclude>**/Sandbox.*</exclude>
                     </excludes>
+                    <outputDirectory>${jarDirectory}</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -75,6 +76,7 @@
                     <locale>en_US</locale>
                     <excludePackageNames>com.mystic_alchemy.ics2java.sandboxes</excludePackageNames>
                     <outputDirectory>${project.basedir}/docs</outputDirectory>
+                    <jarOutputDirectory>${jarDirectory}</jarOutputDirectory>
                     <show>public</show>
                 </configuration>
             </plugin>
@@ -91,6 +93,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <outputDirectory>${jarDirectory}</outputDirectory>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
@@ -119,6 +124,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--suppress UnresolvedMavenProperty -->
         <version.number>${git.commit.time}-${git.commit.id.abbrev}</version.number>
+        <jarDirectory>${project.build.directory}/jars</jarDirectory>
     </properties>
 
 </project>
