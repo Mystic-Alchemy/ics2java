@@ -19,8 +19,8 @@ import java.util.Scanner;
  * The resulting calendar can include none, one or many {@link Event Events}.
  *
  * <p>
- *     The iCal file (type ics) has to be correctly formed, as malformed iCal files will result in a not correctly
- *     parsed calendar.
+ * The iCal file (type ics) has to be correctly formed, as malformed iCal files will result in a not correctly
+ * parsed calendar.
  * </p>
  *
  * @author PilleniusMC for Mystic-Alchemy
@@ -30,6 +30,37 @@ import java.util.Scanner;
 public class CalendarParser {
     private static final DateTimeFormatter I_CAL_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
 
+    /**
+     * Reads all VEVENTs from a passed iCalendar file and strips the BEGIN and END tags from them.
+     * It doesn't edit the events themselves though, they just get pushed into a formatted string.
+     * <p>
+     * Simple file checks are done at the start of the method, so that only files of the type ics in iCalendar format are
+     * actually read, to prevent malformed output.
+     *
+     * <p>
+     * It converts an event of the format <br>
+     * <code>
+     * BEGIN:VEVENT <br>
+     * UID:affe69deadbeef <br>
+     * DTSTAMP:20010101T120000Z <br>
+     * LOCATION: On the world <br>
+     * DESCRIPTION:A long description of what the even entails. Including possible further info. <br>
+     * SUMMARY: Short descriptor <br>
+     * RRULE:FREQ=YEARLY <br>
+     * DTSTART;VALUE=DATE:20010101 <br>
+     * END:VEVENT
+     * </code><br>
+     * to the format <br>
+     * <code>
+     * UID:affe69deadbeef|DTSTAMP:20010101T120000Z|LOCATION: On the world|DESCRIPTION:A long description of what the even entails. Including possible further info.|
+     * SUMMARY: Short descriptor|RRULE:FREQ=YEARLY|DTSTART;VALUE=DATE:20010101
+     * </code>
+     * </p>
+     *
+     * @param icsPath Path to the iCalendar file (type .ics)
+     * @return an array of the content of all detected VEVENT elements
+     * @throws IllegalArgumentException when a non-existent file or a file of the wrong type is passed
+     */
     public static ArrayList<String> readEventStringsFromICS(String icsPath) {
         ArrayList<String> eventStrings = new ArrayList<>();
         Path p = Path.of(icsPath);
