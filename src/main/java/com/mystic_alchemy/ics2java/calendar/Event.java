@@ -6,9 +6,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
+ * Represents iCal VEVENT type entries with their UID, location, summary, description, start and optionally the
+ * recurrence frequency.
+ *
  * @author PilleniusMC for Mystic-Alchemy
- * @since 1.0.0
  * @version 1.0.0
+ * @since 1.0.0
  */
 public class Event {
     private final String UID;

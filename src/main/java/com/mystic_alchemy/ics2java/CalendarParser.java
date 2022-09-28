@@ -11,9 +11,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * Parses an iCal ics file into a {@link com.mystic_alchemy.ics2java.calendar.Calendar}.
+ * The resulting calendar can include none, one or many {@link Event Events}.
+ *
+ * <p>
+ *     The iCal file (type ics) has to be correctly formed, as malformed iCal files will result in a not correctly
+ *     parsed calendar.
+ * </p>
+ *
  * @author PilleniusMC for Mystic-Alchemy
- * @since 1.0.0
  * @version 1.0.0
+ * @since 1.0.0
  */
 public class CalendarParser {
     private static final DateTimeFormatter I_CAL_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
