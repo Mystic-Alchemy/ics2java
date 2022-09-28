@@ -67,7 +67,7 @@ public class CalendarParser {
             throw new IllegalArgumentException("Specified path is not an existing file");
         } else {
             try {
-                if (FilenameUtils.getExtension(icsPath).equals("ics") && Files.probeContentType(p).equals("text/calendar")) {
+                if (!(FilenameUtils.getExtension(icsPath).equals("ics") && Files.probeContentType(p).equals("text/calendar"))) {
                     throw new IllegalArgumentException("Specified path has to lead to an ics type file");
                 }
             } catch (IOException e) {
