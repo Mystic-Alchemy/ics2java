@@ -1,0 +1,36 @@
+name: Create a release from artifacts
+
+on:
+  push:
+    branches: [main, development]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+      - name: Set up JDK16
+        uses: actions/setup-java@v3
+        with:
+          java-version: '16'
+          distribution: 'temurin'
+      - name: Package the library/API
+        run: mvn -B package --file pom.xml
+      - name: Create a release with the artifacts attached
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          prerelease: ${{ ${{ steps.extract_branch.outputs.branch }} == development}}
+          generate_release_notes: true
+          body: |
+            A new version of ics2java has been released.
+            Changes made to this version are listed below.
+          files: | 
+            target/jars/*
