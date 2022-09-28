@@ -2,12 +2,16 @@ package com.mystic_alchemy.ics2java;
 
 import com.mystic_alchemy.ics2java.calendar.Event;
 import com.mystic_alchemy.ics2java.enums.RecurrenceFrequency;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -25,8 +29,21 @@ import java.util.Scanner;
  */
 public class CalendarParser {
     private static final DateTimeFormatter I_CAL_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
+
     public static ArrayList<String> readEventStringsFromICS(String icsPath) {
         ArrayList<String> eventStrings = new ArrayList<>();
+        Path p = Path.of(icsPath);
+        if (Files.notExists(p)) {
+            throw new IllegalArgumentException("Specified path is not an existing file");
+        } else {
+            try {
+                if (FilenameUtils.getExtension(icsPath).equals("ics") && Files.probeContentType(p).equals("text/calendar")) {
+                    throw new IllegalArgumentException("Specified path has to lead to an ics type file");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         try (Scanner scan = new Scanner(new FileReader(icsPath))) {
             StringBuilder builder = new StringBuilder();
             boolean isEvent = false;
