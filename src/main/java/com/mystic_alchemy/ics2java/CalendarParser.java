@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -102,8 +101,18 @@ public class CalendarParser {
         return eventStrings;
     }
 
+    /**
+     * Parses the VEVENT strings, which are extracted from an iCalendar file by {@link #readEventStringsFromICS(String)}.
+     * <p>
+     * This only parses the UID, DESCRIPTION, SUMMARY, RRULE, LOCATION and DTSTART from a VEVENT.
+     * The method is also pretty dumb due to the need to limit complexity.
+     *
+     * @param eventString the content of an iCalendar even as a String with | as its delimiter
+     * @return the parsed event
+     */
     public static Event parseEventString(String eventString) {
-        String uid = eventString.substring(eventString.lastIndexOf("UID:"));
+        int uidIndex = eventString.lastIndexOf("UID:");
+        String uid = eventString.substring(uidIndex, eventString.indexOf('|', uidIndex));
         Event event = new Event(uid);
         String[] parts = eventString.split("\\|");
         for (String part : parts) {
