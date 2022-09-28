@@ -64,6 +64,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <locale>en_US</locale>
                     <excludePackageNames>com.mystic_alchemy.ics2java.sandboxes</excludePackageNames>
                     <outputDirectory>${project.basedir}/docs</outputDirectory>
                     <show>public</show>
