@@ -10,6 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author PilleniusMC for Mystic-Alchemy
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 public class CalendarParser {
     private static final DateTimeFormatter I_CAL_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd");
     public static ArrayList<String> readEventStringsFromICS(String icsPath) {

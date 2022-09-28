@@ -5,6 +5,11 @@ import com.mystic_alchemy.ics2java.enums.RecurrenceFrequency;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+/**
+ * @author PilleniusMC for Mystic-Alchemy
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 public class Event {
     private final String UID;
     private String[] location;
