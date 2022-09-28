@@ -6,5 +6,20 @@ package com.mystic_alchemy.ics2java.enums;
  * @version 1.0.0
  */
 public enum RecurrenceFrequency {
-    DAILY, WEEKLY, MONTHLY, YEARLY
+    /**
+     * Daily recurrence
+     */
+    DAILY,
+    /**
+     * Weekly recurrence
+     */
+    WEEKLY,
+    /**
+     * Monthly recurrence
+     */
+    MONTHLY,
+    /**
+     * Yearly recurrence
+     */
+    YEARLY
 }
