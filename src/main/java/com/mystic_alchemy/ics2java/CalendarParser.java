@@ -35,10 +35,9 @@ public class CalendarParser {
      * <p>
      * Simple file checks are done at the start of the method, so that only files of the type ics in iCalendar format are
      * actually read, to prevent malformed output.
-     *
      * <p>
      * It converts an event of the format <br>
-     * <code>
+     * <p><code>
      * BEGIN:VEVENT <br>
      * UID:affe69deadbeef <br>
      * DTSTAMP:20010101T120000Z <br>
@@ -48,9 +47,9 @@ public class CalendarParser {
      * RRULE:FREQ=YEARLY <br>
      * DTSTART;VALUE=DATE:20010101 <br>
      * END:VEVENT
-     * </code><br>
-     * to the format <br>
-     * <code>
+     * </code><p>
+     * to the format
+     * <p><code>
      * UID:affe69deadbeef|DTSTAMP:20010101T120000Z|LOCATION: On the world|DESCRIPTION:A long description of what the even entails. Including possible further info.|
      * SUMMARY: Short descriptor|RRULE:FREQ=YEARLY|DTSTART;VALUE=DATE:20010101
      * </code>
