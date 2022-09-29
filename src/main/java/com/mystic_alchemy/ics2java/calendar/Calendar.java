@@ -1,5 +1,6 @@
 package com.mystic_alchemy.ics2java.calendar;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,5 +53,53 @@ public class Calendar {
      */
     public void addEvent(Event event) {
         events.add(event);
+    }
+
+    /**
+     * Gets events for a given date.
+     * @param date the date for which Events should be gotten
+     * @return an array of events, happening on the passed date
+     */
+    public Event[] getEventsForDate(LocalDate date) {
+        ArrayList<Event> events = new ArrayList<>();
+        for (Event e : this.events) {
+            LocalDate eventStart = e.getDtStart();
+            if (date.isEqual(eventStart)) {
+                events.add(e);
+            } else if (e.getFreq() != null && eventStart.isBefore(date)) {
+                final LocalDate eStAdaptedToYear = eventStart.withYear(date.getYear());
+                switch (e.getFreq()) {
+                    case YEARLY -> {
+                        if (eStAdaptedToYear.isEqual(date)) {
+                            events.add(e);
+                        }
+                    }
+                    case MONTHLY -> {
+                        if (eStAdaptedToYear.isEqual(date) &&
+                        eStAdaptedToYear.withMonth(date.getMonthValue()).isEqual(date)) {
+                            events.add(e);
+                        }
+                    }
+                    case DAILY -> {
+                        if (eventStart.isBefore(date)) {
+                            events.add(e);
+                        }
+                    }
+                    case WEEKLY -> {
+                        if (eventStart.isBefore(date)) {
+                            LocalDate weekly = eventStart;
+                            do {
+                                if (weekly.isEqual(date)) {
+                                    events.add(e);
+                                    break;
+                                }
+                                weekly = weekly.plusWeeks(1);
+                            } while (weekly.isBefore(date));
+                        }
+                    }
+                }
+            }
+        }
+        return events.toArray(new Event[0]);
     }
 }
