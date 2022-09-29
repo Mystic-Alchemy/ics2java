@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.mystic_alchemy.ics2java"},{"l":"com.mystic_alchemy.ics2java.calendar"},{"l":"com.mystic_alchemy.ics2java.enums"}];updateSearchResults();
