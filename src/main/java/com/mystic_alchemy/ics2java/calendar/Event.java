@@ -12,7 +12,7 @@ import java.util.Arrays;
  * recurrence frequency.
  *
  * @author PilleniusMC for Mystic-Alchemy
- * @version 0.2
+ * @version 0.3
  * @since 0.1
  */
 public class Event {
