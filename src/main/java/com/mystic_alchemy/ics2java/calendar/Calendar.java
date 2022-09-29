@@ -61,28 +61,28 @@ public class Calendar {
      * @return an array of events, happening on the passed date
      */
     public Event[] getEventsForDate(LocalDate date) {
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Event> result = new ArrayList<>();
         for (Event e : this.events) {
             LocalDate eventStart = e.getDtStart();
             if (date.isEqual(eventStart)) {
-                events.add(e);
+                result.add(e);
             } else if (e.getFreq() != null && eventStart.isBefore(date)) {
                 final LocalDate eStAdaptedToYear = eventStart.withYear(date.getYear());
                 switch (e.getFreq()) {
                     case YEARLY -> {
                         if (eStAdaptedToYear.isEqual(date)) {
-                            events.add(e);
+                            result.add(e);
                         }
                     }
                     case MONTHLY -> {
                         if (eStAdaptedToYear.isEqual(date) &&
                         eStAdaptedToYear.withMonth(date.getMonthValue()).isEqual(date)) {
-                            events.add(e);
+                            result.add(e);
                         }
                     }
                     case DAILY -> {
                         if (eventStart.isBefore(date)) {
-                            events.add(e);
+                            result.add(e);
                         }
                     }
                     case WEEKLY -> {
@@ -90,7 +90,7 @@ public class Calendar {
                             LocalDate weekly = eventStart;
                             do {
                                 if (weekly.isEqual(date)) {
-                                    events.add(e);
+                                    result.add(e);
                                     break;
                                 }
                                 weekly = weekly.plusWeeks(1);
@@ -100,6 +100,31 @@ public class Calendar {
                 }
             }
         }
-        return events.toArray(new Event[0]);
+        return result.toArray(new Event[0]);
+    }
+
+    /**
+     * Gets the first event of a given date.
+     * <p>
+     * The first event for a given day is equal to calling {@link #getEventsForDate(LocalDate) getEventsForDate(date)}[0]
+     * <p>
+     * <code>WARNING:</code> May cause issues, as it returns the oldest entered event for a given date.
+     * @param date the date for which Events should be gotten
+     * @return the first event of a date
+     */
+    public Event getFirstEventForDate(LocalDate date) {
+        return getEventsForDate(date)[0];
+    }
+
+    /**
+     * Gets the last event of a given date.
+     * <p>
+     * <code>WARNING:</code> Only returns the newest event.
+     * @param date the date for which Events should be gotten
+     * @return the last event of a date
+     */
+    public Event getLastEventForDate(LocalDate date) {
+        Event[] e = getEventsForDate(date);
+        return e[e.length-1];
     }
 }

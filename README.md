@@ -9,7 +9,8 @@ libraries.
 - Handling vevent elements
 - Handling recurrence frequency rules
 - Simple storing of events in a calendar
-- Pulling all events by date from a calendar
+- Pulling all events of a date from a calendar
+- Pulling the newest and oldest event of a date from a calendar
 
 ## What it can't/won't do
 - Complex recurrence
