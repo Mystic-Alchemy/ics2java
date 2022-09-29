@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author PilleniusMC for Mystic-Alchemy
  * @since 0.1
- * @version 0.3
+ * @version 0.4
  */
 public class Calendar {
     ArrayList<Event> events = new ArrayList<>();

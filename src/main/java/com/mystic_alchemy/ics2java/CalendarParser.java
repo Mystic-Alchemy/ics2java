@@ -25,7 +25,7 @@ import java.util.Scanner;
  * </p>
  *
  * @author PilleniusMC for Mystic-Alchemy
- * @version 0.3
+ * @version 0.4
  * @since 0.1
  */
 public class CalendarParser {
