@@ -3,6 +3,7 @@ package com.mystic_alchemy.ics2java;
 import com.mystic_alchemy.ics2java.calendar.Event;
 import com.mystic_alchemy.ics2java.enums.RecurrenceFrequency;
 import org.apache.commons.io.FilenameUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,21 +60,21 @@ public class CalendarParser {
      * @return an array of the content of all detected VEVENT elements
      * @throws IllegalArgumentException when a non-existent file or a file of the wrong type is passed
      */
-    public static ArrayList<String> readEventStringsFromICS(String icsPath) {
+    public static @NotNull ArrayList<String> readEventStringsFromICS(Path icsPath) {
         ArrayList<String> eventStrings = new ArrayList<>();
-        Path p = Path.of(icsPath);
-        if (Files.notExists(p)) {
+        String pa = icsPath.toString();
+        if (Files.notExists(icsPath)) {
             throw new IllegalArgumentException("Specified path is not an existing file");
         } else {
             try {
-                if (!(FilenameUtils.getExtension(icsPath).equals("ics") && Files.probeContentType(p).equals("text/calendar"))) {
+                if (!(FilenameUtils.getExtension(pa).equals("ics") && Files.probeContentType(icsPath).equals("text/calendar"))) {
                     throw new IllegalArgumentException("Specified path has to lead to an ics type file");
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        try (Scanner scan = new Scanner(new FileReader(icsPath))) {
+        try (Scanner scan = new Scanner(new FileReader(icsPath.toFile()))) {
             StringBuilder builder = new StringBuilder();
             boolean isEvent = false;
             while (scan.hasNext()) {
@@ -101,7 +102,7 @@ public class CalendarParser {
     }
 
     /**
-     * Parses the VEVENT strings, which are extracted from an iCalendar file by {@link #readEventStringsFromICS(String)}.
+     * Parses the VEVENT strings, which are extracted from an iCalendar file by {@link #readEventStringsFromICS(Path)}.
      * <p>
      * This only parses the UID, DESCRIPTION, SUMMARY, RRULE, LOCATION and DTSTART from a VEVENT.
      * The method is also pretty dumb due to the need to limit complexity.
