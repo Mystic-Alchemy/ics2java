@@ -1,5 +1,6 @@
 package com.mystic_alchemy.ics2java;
 
+import com.mystic_alchemy.ics2java.calendar.Calendar;
 import com.mystic_alchemy.ics2java.calendar.Event;
 import com.mystic_alchemy.ics2java.enums.RecurrenceFrequency;
 import org.apache.commons.io.FilenameUtils;
@@ -129,6 +130,24 @@ public class CalendarParser {
             }
         }
         return event;
+    }
+
+    /**
+     * Parses a whole ICS calendar from the start to finish.
+     * <p>
+     * First it reads the ICS file, then parses the events.
+     *
+     * @param icsPath Path to the iCalendar file (type .ics)
+     * @return A calendar with parsed events
+     */
+    public static Calendar parseCalendar(Path icsPath) {
+        ArrayList<String> eventStrings = readEventStringsFromICS(icsPath);
+        Calendar calendar = new Calendar();
+        for (String eS: eventStrings) {
+            Event et = parseEventString(eS);
+            calendar.addEvent(et);
+        }
+        return calendar;
     }
 }
 
